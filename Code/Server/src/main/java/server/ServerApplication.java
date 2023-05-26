@@ -3,6 +3,7 @@ package server;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import server.model.TSPInstance;
+import server.service.constructive.TSPDoubleTree;
 import server.service.constructive.TSPNearestNeighbour;
 import server.service.exact.TSPJGraphT;
 import server.service.improvement.TSPGeneticAlgorithm;
@@ -18,7 +19,7 @@ public class ServerApplication {
     public static void main(String[] args) {
         try{
             //reading Instance
-            String jsonContent = new String(Files.readAllBytes(Paths.get("instances/test_15.json")));
+            String jsonContent = new String(Files.readAllBytes(Paths.get("instances/pcb3038.tsp.json")));
             ObjectMapper objectMapper = new ObjectMapper();
             TSPInstance tspInstance = objectMapper.readValue(jsonContent, TSPInstance.class);
             System.out.println(tspInstance);
@@ -39,6 +40,10 @@ public class ServerApplication {
             //JGraphT exact
             TSPJGraphT tspjGraphT = new TSPJGraphT(tspInstance);
             System.out.println(tspjGraphT.solve());
+
+            //TSP doubleTree x2 approximation
+            TSPDoubleTree tspDoubleTree = new TSPDoubleTree(tspInstance);
+            System.out.println(tspDoubleTree.solve());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -27,6 +27,8 @@ public class TSPJGraphT {
             }
     }
     public long solve(){
+        if(graph.vertexSet().size() > 30)
+            return -1;
         HamiltonianCycleAlgorithm<Integer, DefaultWeightedEdge> heldKarpTSP = new HeldKarpTSP<>();
         GraphPath<Integer, DefaultWeightedEdge> path = heldKarpTSP.getTour(graph);
         return (long) path.getWeight();
