@@ -6,6 +6,6 @@ public class TSPController {
         // delete instance
         // get solution -> pe asta o sa o iau dintr-un db
         // get available instances -> pe asta o sa o iau dintr-un bd
-
+        // de facut maine
 
 }
