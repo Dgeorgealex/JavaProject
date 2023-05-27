@@ -16,7 +16,9 @@ public class TSPSolutionDAO {
 
     //INSERT
     public boolean insert(TSPSolution tspSolution) {
-        String sql = "INSERT INTO tsp_solution (instance_id, user_name, algorithm_name, value) VALUES (?, ?, ?, ?)";
+        System.out.println("Is this called?");
+        System.out.println(tspSolution);
+        String sql = "INSERT INTO solutions (instance_id, user_name, algorithm_name, value) VALUES (?, ?, ?, ?)";
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -24,6 +26,8 @@ public class TSPSolutionDAO {
             statement.setString(2, tspSolution.getUserName());
             statement.setString(3, tspSolution.getAlgorithmName());
             statement.setLong(4, tspSolution.getValue());
+            statement.executeUpdate();
+
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int id = generatedKeys.getInt(1);
@@ -39,7 +43,7 @@ public class TSPSolutionDAO {
 
     //GET ALL
     public List<TSPSolution> getAll() {
-        String sql = "SELECT * FROM tsp_solution";
+        String sql = "SELECT * FROM solutions";
         try (Connection connection = Database.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
@@ -63,7 +67,7 @@ public class TSPSolutionDAO {
 
     //GET BY INSTANCE SORTED
     public List<TSPSolution> getByInstanceIdSorted(int instanceId) {
-        String sql = "SELECT * FROM tsp_solution WHERE instance_id = ? ORDER BY CASE WHEN value = 0 THEN 1 ELSE 0 END, value ASC";
+        String sql = "SELECT * FROM solutions WHERE instance_id = ? ORDER BY CASE WHEN value = 0 THEN 1 ELSE 0 END, value ASC";
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -87,6 +91,23 @@ public class TSPSolutionDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //FIND AFTER USERNAME AND ALGORITHM
+    public boolean findAfterUsernameAndAlgorithm(String userName, String algorithmName) {
+        String sql = "SELECT * FROM solutions WHERE user_name = ? AND algorithm_name = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, userName);
+            statement.setString(2, algorithmName);
+            ResultSet resultSet = statement.executeQuery();
+
+            return resultSet.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

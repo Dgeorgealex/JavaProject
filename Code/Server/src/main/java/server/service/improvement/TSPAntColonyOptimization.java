@@ -2,9 +2,10 @@ package server.service.improvement;
 
 import server.model.Point;
 import server.model.TSPInstance;
+import server.service.TSPSolver;
 import server.util.Ant;
 
-public class TSPAntColonyOptimization {
+public class TSPAntColonyOptimization implements TSPSolver {
     private final double C = 1.0; // initial value of pheromones
     private final double ALFA = 1.0; // pheromone importance
     private final double BETA = 5.0; // distance priority
@@ -51,7 +52,7 @@ public class TSPAntColonyOptimization {
     public double[][] getPheromones() {
         return pheromones;
     }
-
+    @Override
     public long solve() {
         long minimum = Long.MAX_VALUE;
         // initialize graph

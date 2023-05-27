@@ -2,12 +2,13 @@ package server.service.improvement;
 
 import server.model.TSPInstance;
 import server.model.Point;
+import server.service.TSPSolver;
 import server.util.ArrayUtils;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class TSPSimulatedAnnealing {
+public class TSPSimulatedAnnealing implements TSPSolver {
     private static final double T_MIN = 1e-10;
     private static final double ALFA = 0.99;
     private static final double INIT_TEMPERATURE = 100000;
@@ -77,6 +78,7 @@ public class TSPSimulatedAnnealing {
         }
 
     }
+    @Override
     public long solve(){
         int k = 0;
         long minimum, neighbourValue;

@@ -2,6 +2,7 @@ package server.service.constructive;
 
 import server.model.Point;
 import server.model.TSPInstance;
+import server.service.TSPSolver;
 import server.util.CostEdge;
 import server.util.DSU;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TSPDoubleTree {
+public class TSPDoubleTree implements TSPSolver {
     private final int n;
     private final Point[] points;
     private List<Integer>[] tree;
@@ -35,6 +36,7 @@ public class TSPDoubleTree {
             if(it != p)
                 dfs(it, x);
     }
+    @Override
     public long solve() {
         int con = 0;
         for (int i = 0; i < n; i++)

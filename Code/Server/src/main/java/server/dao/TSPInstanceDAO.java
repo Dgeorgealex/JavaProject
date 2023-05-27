@@ -3,7 +3,7 @@ package server.dao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import server.model.TSPInstance;
 import server.model.Point;
-import server.util.PairIntString;
+import server.util.PairIdInstance;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -86,23 +86,37 @@ public class TSPInstanceDAO {
     }
 
     // GET AVAILABLE INSTANCES
-    public List<PairIntString> getAvailableInstances() {
+    public List<PairIdInstance> getAvailableInstances() {
         String sql = "SELECT id, name FROM problem_instance";
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
-            List<PairIntString> instances = new ArrayList<>();
+            List<PairIdInstance> instances = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                PairIntString instance = new PairIntString(id, name);
+                PairIdInstance instance = new PairIdInstance(id, name);
                 instances.add(instance);
             }
             return instances;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    //DELETE INSTANCE
+    public boolean delete(int id) {
+        String sql = "DELETE FROM problem_instance WHERE id = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -143,4 +157,6 @@ public class TSPInstanceDAO {
             return null;
         }
     }
+
+
 }

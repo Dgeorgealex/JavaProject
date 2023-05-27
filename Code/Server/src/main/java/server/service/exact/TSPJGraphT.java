@@ -9,9 +9,10 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import server.model.Point;
 import server.model.TSPInstance;
+import server.service.TSPSolver;
 
 //stiu si eu sa fac dinamica, doar ca am zis sa folosesc ceva random
-public class TSPJGraphT {
+public class TSPJGraphT implements TSPSolver {
     private final SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph;
     public TSPJGraphT(TSPInstance tspInstance) {
         int n = tspInstance.getN();
@@ -26,6 +27,7 @@ public class TSPJGraphT {
                 graph.setEdgeWeight(e, distance);
             }
     }
+    @Override
     public long solve(){
         if(graph.vertexSet().size() > 30)
             return -1;

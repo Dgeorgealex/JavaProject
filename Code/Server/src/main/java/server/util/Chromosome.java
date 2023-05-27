@@ -59,11 +59,11 @@ public class Chromosome {
             if(lengthDelta < 0){
                 swaps--;
                 reverseGene(x, y);
-                evaluate();
                 if(swaps == 0)
                     break;
             }
         }
+        evaluate();
     }
     public void crossOX(Chromosome chromosome){
         int[] p1 = this.gene;

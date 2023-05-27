@@ -2,8 +2,9 @@ package server.service.constructive;
 
 import server.model.TSPInstance;
 import server.model.Point;
+import server.service.TSPSolver;
 
-public class TSPNearestNeighbour{
+public class TSPNearestNeighbour implements TSPSolver {
 
     private int n;
     private Point[] points;
@@ -12,7 +13,7 @@ public class TSPNearestNeighbour{
         this.n = tspInstance.getN();
         this.points = tspInstance.getPoints();
     }
-
+    @Override
     public long solve(){
         long ans = 0;
         int current = 0;

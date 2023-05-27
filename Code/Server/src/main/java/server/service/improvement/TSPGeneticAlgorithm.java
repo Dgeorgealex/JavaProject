@@ -1,6 +1,7 @@
 package server.service.improvement;
 
 import server.model.TSPInstance;
+import server.service.TSPSolver;
 import server.util.Chromosome;
 import server.util.PairDoubleInt;
 import server.model.Point;
@@ -8,7 +9,7 @@ import server.model.Point;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TSPGeneticAlgorithm {
+public class TSPGeneticAlgorithm implements TSPSolver {
     private static final int POP_SIZE = 200;
     private static final double CP = 0.85;
     private static final int ELITISM = 20;
@@ -68,6 +69,7 @@ public class TSPGeneticAlgorithm {
         }
         shuffle(offspring);
     }
+    @Override
     public long solve() {
         // Initialize variables
         int[] offspring = new int[POP_SIZE];
