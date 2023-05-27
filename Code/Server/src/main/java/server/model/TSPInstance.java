@@ -1,7 +1,10 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Arrays;
 
+@JsonIgnoreProperties("id")
 public class TSPInstance {
     private int id;
     private String name;

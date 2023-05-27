@@ -1,5 +1,8 @@
 package server.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties("id")
 public class TSPSolution {
     private int id;
     private int instanceId;

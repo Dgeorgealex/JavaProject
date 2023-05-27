@@ -1,8 +1,10 @@
 package server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import server.dao.TSPInstanceDAO;
+import server.dao.TSPSolutionDAO;
 import server.model.TSPInstance;
 import server.service.constructive.TSPDoubleTree;
 import server.service.constructive.TSPNearestNeighbour;
@@ -45,6 +47,7 @@ public class ServerApplication {
     }
     public static void main(String[] args) {
         TSPInstanceDAO tspInstanceDAO = new TSPInstanceDAO();
+        TSPSolutionDAO tspSolutionDAO = new TSPSolutionDAO();
         try{
             //reading Instance
             String jsonContent = new String(Files.readAllBytes(Paths.get("instances/test_5.json")));
@@ -56,7 +59,7 @@ public class ServerApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //SpringApplication.run(ServerApplication.class, args);
+        SpringApplication.run(ServerApplication.class, args);
     }
 
 }
