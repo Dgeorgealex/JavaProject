@@ -4,8 +4,6 @@ import server.model.Point;
 import server.model.TSPInstance;
 import server.util.CostEdge;
 import server.util.DSU;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class TSPChristofides {

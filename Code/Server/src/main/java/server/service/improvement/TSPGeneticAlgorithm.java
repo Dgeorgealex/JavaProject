@@ -2,7 +2,7 @@ package server.service.improvement;
 
 import server.model.TSPInstance;
 import server.util.Chromosome;
-import server.util.PairForTSP;
+import server.util.PairDoubleInt;
 import server.model.Point;
 
 import java.util.*;
@@ -42,13 +42,13 @@ public class TSPGeneticAlgorithm {
         }
     }
 
-    private void addElites(PairForTSP[] parent, int[] offspring){
-        Arrays.sort(parent, Comparator.comparingDouble((PairForTSP p) -> p.getFirst()).reversed());
+    private void addElites(PairDoubleInt[] parent, int[] offspring){
+        Arrays.sort(parent, Comparator.comparingDouble((PairDoubleInt p) -> p.getFirst()).reversed());
         for(int i = 0; i < ELITISM; i++)
             offspring[i] = parent[i].getSecond();
     }
 
-    private void selectRoulette(PairForTSP[] parent, int[] offspring){
+    private void selectRoulette(PairDoubleInt[] parent, int[] offspring){
         double F = 0, r;
         double[] q = new double[POP_SIZE + 1];
         for(int i = 0; i < POP_SIZE; i++)
@@ -72,14 +72,14 @@ public class TSPGeneticAlgorithm {
         // Initialize variables
         int[] offspring = new int[POP_SIZE];
         int[] cross = new int[POP_SIZE];
-        PairForTSP[] parent = new PairForTSP[POP_SIZE];
+        PairDoubleInt[] parent = new PairDoubleInt[POP_SIZE];
         double r;
 
         // Initialize population
         for (int i = 0; i < POP_SIZE; i++) {
             chrom[i].initRandom();
             chrom[i].evaluate();
-            parent[i] = new PairForTSP();
+            parent[i] = new PairDoubleInt();
         }
 
         long minimum = chrom[0].getCost();

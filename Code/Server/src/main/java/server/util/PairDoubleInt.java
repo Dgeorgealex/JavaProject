@@ -1,9 +1,9 @@
 package server.util;
 
-public class PairForTSP {
+public class PairDoubleInt {
     private double first;
     private int second;
-    public PairForTSP() {
+    public PairDoubleInt() {
         this.first = 0;
         this.second = 0;
     }
