@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import java.io.File;
 
@@ -73,6 +74,9 @@ public class SecondPage {
 
         backButton.setOnAction(event -> tspRankerGUI.showFirstPage());
 
+        refreshButton.setOnAction(event -> {
+            getInstanceSolutions();
+        });
         sendSolutionButton.setOnAction(event ->{
             ObjectMapper objectMapper = new ObjectMapper();
             TSPSolutionCandidate solutionCandidate = null;
@@ -93,8 +97,8 @@ public class SecondPage {
             try {
                 ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
                 messageTextArea.setText("Server response: " + response.getBody());
-            } catch (HttpClientErrorException e) {
-                messageTextArea.setText("HTTP request failed: " + e.getMessage());
+            } catch (HttpStatusCodeException e) {
+                messageTextArea.setText("HTTP request failed: " + e.getResponseBodyAsString());
             }
         });
 
