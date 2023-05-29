@@ -79,7 +79,6 @@ public class SecondPage {
             try {
                 solutionCandidate = objectMapper.readValue(new File("file.json"), TSPSolutionCandidate.class);
             } catch(Exception e){
-                //e.printStackTrace();
                 solutionCandidate = null;
                 messageTextArea.setText("Error while readint candidate solution from file, please check the format");
             }
