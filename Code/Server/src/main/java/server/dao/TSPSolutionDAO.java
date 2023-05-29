@@ -16,8 +16,6 @@ public class TSPSolutionDAO {
 
     //INSERT
     public boolean insert(TSPSolution tspSolution) {
-        System.out.println("Is this called?");
-        System.out.println(tspSolution);
         String sql = "INSERT INTO solutions (instance_id, user_name, algorithm_name, value) VALUES (?, ?, ?, ?)";
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -92,13 +90,14 @@ public class TSPSolutionDAO {
     }
 
     //FIND AFTER USERNAME AND ALGORITHM
-    public boolean findAfterUsernameAndAlgorithm(String userName, String algorithmName) {
-        String sql = "SELECT * FROM solutions WHERE user_name = ? AND algorithm_name = ?";
+    public boolean findAfterUsernameAndAlgorithm(String userName, String algorithmName, int instanceId) {
+        String sql = "SELECT * FROM solutions WHERE user_name = ? AND algorithm_name = ? AND instance_id = ?";
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, userName);
             statement.setString(2, algorithmName);
+            statement.setInt(3, instanceId);
             ResultSet resultSet = statement.executeQuery();
 
             return resultSet.next();

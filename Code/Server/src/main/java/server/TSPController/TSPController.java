@@ -22,14 +22,14 @@ public class TSPController {
     @PostMapping
     public ResponseEntity<String> createInstance(@RequestBody TSPInstance tspInstance){
         if(tspInstanceDAO.existsByName(tspInstance.getName()))
-            return new ResponseEntity<>("A instance with the same name already exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("A instance with the same name already exists", HttpStatus.OK);
 
         tspInstanceDAO.insert(tspInstance);
         System.out.println("Tsp instance added " + tspInstance.getName());
         System.out.println(tspInstance.getId());
         TSPInstanceSolver tspInstanceSolver = new TSPInstanceSolver(tspInstance);
         tspInstanceSolver.start();
-        return new ResponseEntity<>("TSP instance created, id:" + tspInstance.getId(), HttpStatus.CREATED);
+        return new ResponseEntity<>("TSP instance created, id:" + tspInstance.getId(), HttpStatus.OK);
     }
     @GetMapping
     public ResponseEntity<List<PairIdInstance>> getAvailableInstances(){
@@ -45,28 +45,28 @@ public class TSPController {
         if(tspInstance != null)
             return new ResponseEntity<>(tspInstance, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/{id}/solutions")
     public ResponseEntity<String> postSolution(@PathVariable int id, @RequestBody TSPSolutionCandidate candidateSolution){
         TSPInstance tspInstance = tspInstanceDAO.getById(id);
         if(tspInstance == null)
-            return new ResponseEntity<>("Problem instance not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Problem instance not found", HttpStatus.OK);
 
         long value = TSPSolution.verifySolution(candidateSolution, tspInstance);
         if(value != -1){
             if(candidateSolution.getName().equals("Server"))
-                return new ResponseEntity<>("You cannot use Server as a solution name", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>("You cannot use Server as a solution name", HttpStatus.OK);
 
-            if(tspSolutionDAO.findAfterUsernameAndAlgorithm(candidateSolution.getName(), candidateSolution.getAlgorithmName()))
-                return new ResponseEntity<>("A solution with the same pair (name, algorithm) exists, change the name or the algorithm", HttpStatus.UNAUTHORIZED);
+            if(tspSolutionDAO.findAfterUsernameAndAlgorithm(candidateSolution.getName(), candidateSolution.getAlgorithmName(), id))
+                return new ResponseEntity<>("A solution with the same pair (name, algorithm) exists, change the name or the algorithm", HttpStatus.OK);
 
             TSPSolution tspSolution = new TSPSolution(tspInstance.getId(), candidateSolution.getName(), candidateSolution.getAlgorithmName(), value);
             tspSolutionDAO.insert(tspSolution);
             return new ResponseEntity<>("Solution valid: " + tspSolution.getId(), HttpStatus.OK);
         }
         else
-            return new ResponseEntity<>("Solution is not valid", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Solution is not valid", HttpStatus.OK);
     }
     @GetMapping("/{id}/solutions")
     public ResponseEntity<List<TSPSolution>> getSolutions(@PathVariable int id){
