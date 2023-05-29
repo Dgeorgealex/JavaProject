@@ -1,15 +1,12 @@
 package generators;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Point;
 import model.TSPInstance;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class RandomGenerator {
-
     public static void main(String args[]){
         Scanner in = new Scanner(System.in);
 

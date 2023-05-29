@@ -10,7 +10,7 @@ import java.util.List;
 public class RandomPermutationGenerator {
     public static void main(String[] args) {
         List<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i < 280; i++) {
+        for (int i = 0; i < 130; i++) {
             numbers.add(i);
         }
 
