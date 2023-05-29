@@ -19,7 +19,6 @@ public class TSPController {
     TSPInstanceDAO tspInstanceDAO = new TSPInstanceDAO();
     TSPSolutionDAO tspSolutionDAO = new TSPSolutionDAO();
 
-    // REQUESTS FOR TSPInstance
     @PostMapping
     public ResponseEntity<String> createInstance(@RequestBody TSPInstance tspInstance){
         if(tspInstanceDAO.existsByName(tspInstance.getName()))

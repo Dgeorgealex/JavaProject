@@ -84,9 +84,6 @@ public class TSPSolutionDAO {
                 TSPSolution tspSolution = new TSPSolution(id, instanceId, userName, algorithmName, value);
                 tspSolutions.add(tspSolution);
             }
-
-            tspSolutions.sort(Comparator.comparingLong(TSPSolution::getValue).thenComparingInt(TSPSolution::getId));
-
             return tspSolutions;
         } catch (Exception e) {
             e.printStackTrace();

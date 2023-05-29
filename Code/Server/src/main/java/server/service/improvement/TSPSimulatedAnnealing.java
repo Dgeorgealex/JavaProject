@@ -80,6 +80,9 @@ public class TSPSimulatedAnnealing implements TSPSolver {
     }
     @Override
     public long solve(){
+        if( n > 5000 )
+            return 0;
+
         int k = 0;
         long minimum, neighbourValue;
         int[] permutation = new int[n];

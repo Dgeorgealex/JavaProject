@@ -54,6 +54,9 @@ public class TSPAntColonyOptimization implements TSPSolver {
     }
     @Override
     public long solve() {
+        if( n > 500)
+            return 0;
+
         long minimum = Long.MAX_VALUE;
         // initialize graph
         for (int i = 0; i < n; i++)
