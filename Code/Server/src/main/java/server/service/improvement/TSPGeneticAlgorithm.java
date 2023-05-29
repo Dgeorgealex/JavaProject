@@ -9,18 +9,49 @@ import server.model.Point;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The Genetic Algorithm implementation
+ */
 public class TSPGeneticAlgorithm implements TSPSolver {
+    /**
+     * Population size
+     */
     private static final int POP_SIZE = 200;
+    /**
+     * Crossover probability
+     */
     private static final double CP = 0.85;
+    /**
+     * Number of elites transfered to the next generation
+     */
     private static final int ELITISM = 20;
+    /**
+     * Number of generations
+     */
     private static final int NR_GENERATIONS = 2000;
     private int n;
     private Point[] points;
+    /**
+     * Random generator
+     */
     private Random random;
+    /**
+     * The current population
+     */
     private Chromosome[] chrom;
+    /**
+     * The population from the next generation
+     */
     private Chromosome[] chromAux;
+    /**
+     * The best chromosome
+     */
     private Chromosome best;
 
+    /**
+     * Constructor
+     * @param tspInstance The problem instance that is going to be solved
+     */
     public TSPGeneticAlgorithm(TSPInstance tspInstance) {
         this.n = tspInstance.getN();
         this.points = tspInstance.getPoints();
@@ -35,6 +66,10 @@ public class TSPGeneticAlgorithm implements TSPSolver {
         }
     }
 
+    /**
+     * Shuffles the population
+     * @param v Population indexes
+     */
     private void shuffle(int[] v) {
         List<Integer> vList = Arrays.stream(v).boxed().collect(Collectors.toList());
         Collections.shuffle(vList);
@@ -43,12 +78,22 @@ public class TSPGeneticAlgorithm implements TSPSolver {
         }
     }
 
+    /**
+     * Adding elites
+     * @param parent Pairs of indexes and fitness
+     * @param offspring The indexes of the chromosomes that are going to be put in the next generation
+     */
     private void addElites(PairDoubleInt[] parent, int[] offspring){
         Arrays.sort(parent, Comparator.comparingDouble((PairDoubleInt p) -> p.getFirst()).reversed());
         for(int i = 0; i < ELITISM; i++)
             offspring[i] = parent[i].getSecond();
     }
 
+    /**
+     * Roulete Selection method
+     * @param parent Pairs of indexes and fitness
+     * @param offspring The indexes of the chromosomes that are going to be put in the next generation
+     */
     private void selectRoulette(PairDoubleInt[] parent, int[] offspring){
         double F = 0, r;
         double[] q = new double[POP_SIZE + 1];
@@ -69,6 +114,11 @@ public class TSPGeneticAlgorithm implements TSPSolver {
         }
         shuffle(offspring);
     }
+
+    /**
+     * The main solve method
+     * @return The best value found by the genetic algorithm
+     */
     @Override
     public long solve() {
         // Initialize variables

@@ -32,4 +32,20 @@ public class ChristofidesTest {
         System.out.println(elapsedTimeSeconds + " seconds");
         assert(elapsedTimeSeconds < 300);
     }
+    @Test
+    public void testValue() {
+        TSPInstance tspInstance;
+        try {
+            String jsonContent = new String(Files.readAllBytes(Paths.get("instances/pcb3038.tsp.json")));
+            ObjectMapper objectMapper = new ObjectMapper();
+            tspInstance = objectMapper.readValue(jsonContent, TSPInstance.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        TSPSolver tspSolver = new TSPChristofides(tspInstance);
+
+        long minimum = tspSolver.solve();
+        assert(2 * minimum / 3 < 137694);
+    }
 }

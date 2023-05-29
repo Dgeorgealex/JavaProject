@@ -16,14 +16,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The Christofides Algorithm implementation
+ */
 public class TSPChristofides implements TSPSolver {
     private final int n;
     private final Point[] points;
+    /**
+     * The euler tour
+     */
     private List<Integer> eulerTour;
     private List<PairIntInt>[] myGraph;
     private int edgeCount;
     private boolean[] visitedEdges;
+    /**
+     * All the edges in the complete graph to be sorted
+     */
     private CostEdge[] edges;
+    /**
+     * DSU data structure
+     */
     private DSU dsu;
 
     public TSPChristofides(TSPInstance tspInstance){
@@ -39,6 +51,10 @@ public class TSPChristofides implements TSPSolver {
         eulerTour = new ArrayList<>();
     }
 
+    /**
+     * Using the JGraphT algorithm to find a minimum perfect matching in a complete graph
+     * @param oddVertices The vertices that have a odd degree
+     */
     private void addMatchingToMyGraph(List<Integer> oddVertices){
         if(oddVertices.size() == 0)
             return;
@@ -65,6 +81,11 @@ public class TSPChristofides implements TSPSolver {
             myGraph[y].add(new PairIntInt(edgeCount, x));
         }
     }
+
+    /**
+     * The Fleury Algorithm of finding a euler tour
+     * @param x The current vertex
+     */
     private void fleuryAlgorithm(int x){
         while(!myGraph[x].isEmpty()){
             PairIntInt u = myGraph[x].remove(myGraph[x].size() - 1);

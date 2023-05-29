@@ -5,21 +5,55 @@ import server.model.TSPInstance;
 import server.service.TSPSolver;
 import server.util.Ant;
 
+/**
+ * The Ant Colony Optimization implementation
+ */
 public class TSPAntColonyOptimization implements TSPSolver {
-    private final double C = 1.0; // initial value of pheromones
-    private final double ALFA = 1.0; // pheromone importance
-    private final double BETA = 5.0; // distance priority
-    private final double EVAPORATION_RATE = 0.5; // self-explanatory
-    private final double RANDOM_FACTOR = 0.01; // probability that the ant does something random
-    private final double Q = 500; // total amount of pheromone left by an ant
+    /**
+     * Initial value of pheromones
+     */
+    private final double C = 1.0;
+    /**
+     * Pheromone importance
+     */
+    private final double ALFA = 1.0;
+    /**
+     * Distance importance
+     */
+    private final double BETA = 5.0;
+    /**
+     * Pheromone evaporation rate
+     */
+    private final double EVAPORATION_RATE = 0.5;
+    /**
+     * The probability that the ant does something random
+     */
+    private final double RANDOM_FACTOR = 0.01;
+    /**
+     * Total amount of pheromone left by an ant
+     */
+    private final double Q = 500;
     private int NR_ANTS;
     private final int NR_ITERATIONS = 100;
     private final int n;
     private final Point[] points;
+    /**
+     * Distance between every pair of nodes in the graph
+     */
     private final int[][] graph;
+    /**
+     * The value of pheromones on each edge
+     */
     private double[][] pheromones;
+    /**
+     * The ant colony
+     */
     private final Ant[] ants;
 
+    /**
+     * Constructor
+     * @param tspInstance The TSP instance that is going to be solved
+     */
     public TSPAntColonyOptimization(TSPInstance tspInstance) {
         n = tspInstance.getN();
         points = tspInstance.getPoints();
@@ -52,6 +86,10 @@ public class TSPAntColonyOptimization implements TSPSolver {
     public double[][] getPheromones() {
         return pheromones;
     }
+    /**
+     * The main solve method
+     * @return The best value found by the algorithm
+     */
     @Override
     public long solve() {
         if( n > 500)

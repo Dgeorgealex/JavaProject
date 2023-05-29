@@ -2,8 +2,16 @@ package server.util;
 
 import java.util.Random;
 
+/**
+ * A class of ArrayUtils that are not directly implemented in Java
+ */
 public class ArrayUtils {
     private static Random random = new Random();
+
+    /**
+     * Generate a permutation with the numbers from 0 to length - 1
+     * @param array The array
+     */
     public static void generateRandomPermutation(int[] array) {
         int n = array.length;
         for (int i = 0; i < n; i++) {
@@ -17,6 +25,12 @@ public class ArrayUtils {
         }
     }
 
+    /**
+     * Reverse the array between x and y
+     * @param array
+     * @param x start position
+     * @param y end position
+     */
     public static void reverseArrayPart(int[] array, int x, int y) {
         while (x < y) {
             int temp = array[x];

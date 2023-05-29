@@ -9,6 +9,9 @@ import server.model.Point;
 import server.model.TSPInstance;
 import server.service.TSPSolver;
 
+/**
+ * Finding the exact solution using JGraphT
+ */
 public class TSPJGraphT implements TSPSolver {
     private final SimpleWeightedGraph<Integer, DefaultWeightedEdge> graph;
     public TSPJGraphT(TSPInstance tspInstance) {

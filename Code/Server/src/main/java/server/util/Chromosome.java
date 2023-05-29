@@ -4,8 +4,14 @@ import server.model.Point;
 
 import java.util.Random;
 
+/**
+ * Chromosome class used for implementing the Genetic Algorithm
+ */
 public class Chromosome {
     private final int n;
+    /**
+     * The array of genes
+     */
     private int[] gene;
     private final Point[] points;
     private long cost;
@@ -31,6 +37,10 @@ public class Chromosome {
     private void reverseGene(int x, int y) {
         ArrayUtils.reverseArrayPart(gene, x, y);
     }
+
+    /**
+     * Mutation operator, based on 2-Opt
+     */
     public void mutate2opt() {
         int swaps = 50;
         int searches = 500;
@@ -65,6 +75,11 @@ public class Chromosome {
         }
         evaluate();
     }
+
+    /**
+     * Crossover operator - order crossover
+     * @param chromosome The other chromosome
+     */
     public void crossOX(Chromosome chromosome){
         int[] p1 = this.gene;
         int[] p2 = chromosome.getGene();
@@ -105,11 +120,20 @@ public class Chromosome {
             for(int i = 0; i<n; i++)
                 p2[i] = child[i];
     }
+
+    /**
+     * Copy the genes from the other chromosome
+     * @param chromosome The other chromosome
+     */
     public void copyGenes(Chromosome chromosome){
         int[] from = chromosome.getGene();
         for(int i=0;i<n;i++)
             gene[i] = from[i];
     }
+
+    /**
+     * Compute the cost of the Chromosome
+     */
     public void evaluate() {
         cost = 0;
         for (int i = 0; i < n - 1; i++) {

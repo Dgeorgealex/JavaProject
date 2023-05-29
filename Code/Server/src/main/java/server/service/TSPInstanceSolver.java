@@ -11,13 +11,25 @@ import server.service.improvement.TSPAntColonyOptimization;
 import server.service.improvement.TSPGeneticAlgorithm;
 import server.service.improvement.TSPSimulatedAnnealing;
 
+/**
+ * A thread that creates 7 thread each one with a different TSP algorithm
+ */
 public class TSPInstanceSolver extends Thread {
     private final TSPSolutionDAO tspSolutionDAO;
-    TSPInstance tspInstance;
+    private TSPInstance tspInstance;
+
+    /**
+     * Constructor
+     * @param tspInstance The instance that will be solved
+     */
     public TSPInstanceSolver(TSPInstance tspInstance) {
         tspSolutionDAO = new TSPSolutionDAO();
         this.tspInstance = tspInstance;
     }
+
+    /**
+     * Thread run: Creates a thread for each one of the algorithms and then uses the TSPSolutionDAO to insert in the database
+     */
     @Override
     public void run() {
         TSPSolverRunner[] threads = new TSPSolverRunner[7];

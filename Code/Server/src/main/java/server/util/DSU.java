@@ -1,5 +1,8 @@
 package server.util;
 
+/**
+ * DSU data structure used to compute a MST
+ */
 public class DSU {
     private final int n;
     private int[] t;

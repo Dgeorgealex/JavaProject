@@ -1,5 +1,8 @@
 package server.util;
 
+/**
+ * Used for implementing Double Tree and Christofides, can compare two edges
+ */
 public class CostEdge implements Comparable<CostEdge> {
     private final int cost;
     private final int nodeA;

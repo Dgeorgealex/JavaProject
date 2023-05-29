@@ -8,6 +8,9 @@ import server.util.ArrayUtils;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Simulated annealing implementation
+ */
 public class TSPSimulatedAnnealing implements TSPSolver {
     private static final double T_MIN = 1e-10;
     private static final double ALFA = 0.99;
@@ -16,14 +19,30 @@ public class TSPSimulatedAnnealing implements TSPSolver {
     private final int n;
     private final Point[] points;
     private final Random random;
+
+    /**
+     * Constructor
+     * @param tspInstance The TSP instance that is going to be solved
+     */
     public TSPSimulatedAnnealing(TSPInstance tspInstance) {
         this.n = tspInstance.getN();
         this.points = tspInstance.getPoints();
         this.random = new Random();
     }
+
+    /**
+     * Generates random permutation - used for initializing a candidate solution
+     * @param permutation
+     */
     private void generateRandomPermutation(int[] permutation) {
         ArrayUtils.generateRandomPermutation(permutation);
     }
+
+    /**
+     * Computes the cost of the candidate solution
+     * @param permutation The candidate solution
+     * @return The cost of the candidate solution
+     */
     private long evaluatePermutation(int[] permutation){
         long distance = 0;
         for(int i=0;i<n-1;i++)
@@ -33,6 +52,11 @@ public class TSPSimulatedAnnealing implements TSPSolver {
 
         return distance;
     }
+
+    /**
+     * Used to generate a neighbour - reverses a subsequence from the candidate solution
+     * @param permutation The candidate solution
+     */
     private void reverse(int[] permutation){
         int x = random.nextInt(n), y = random.nextInt(n);
         if(x == y)
@@ -44,6 +68,11 @@ public class TSPSimulatedAnnealing implements TSPSolver {
         }
         ArrayUtils.reverseArrayPart(permutation, x, y);
     }
+
+    /**
+     * Used to generate a neighbour.
+     * @param permutation
+     */
     private void transport(int[] permutation){
         int x = random.nextInt(n), y = random.nextInt(n);
         if( x > y ){
@@ -78,6 +107,11 @@ public class TSPSimulatedAnnealing implements TSPSolver {
         }
 
     }
+
+    /**
+     * Main solve method
+     * @return The best solution found by the Simulated Annealing algorithm
+     */
     @Override
     public long solve(){
         if( n > 5000 )

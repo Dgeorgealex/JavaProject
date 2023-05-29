@@ -4,17 +4,39 @@ import server.service.improvement.TSPAntColonyOptimization;
 
 import java.util.Random;
 
+/**
+ * Ant class - used in ACO
+ */
 public class Ant {
+    /**
+     * The importance of pheromones
+     */
     private final double ALFA;
+    /**
+     * The importance of distance
+     */
     private final double BETA;
+    /**
+     * The random factor
+     */
     private final double RANDOM_FACTOR;
     private final int n;
     private int currentVertice, currentLength;
+    /**
+     * The tour found by the ant
+     */
     private int tour[];
+
     private boolean visited[];
+    /**
+     * The cost of the tour
+     */
     private long cost;
     private int[][] graph;
     private double[][] pheromones;
+    /**
+     * The probability that the ant will go on that edge (proportional to the distance and number of pheromones)
+     */
     private double[] probabilities;
     private Random random;
 
@@ -51,6 +73,10 @@ public class Ant {
         visited[currentVertice] = true;
         tour[0] = currentVertice;
     }
+
+    /**
+     * Compute the probabilities
+     */
     public void computeProbabilities(){
         double pheromone = 0;
         for(int i=0; i<n; i++)
@@ -73,6 +99,10 @@ public class Ant {
                 probabilities[i] = fitness / pheromone;
             }
     }
+
+    /**
+     * Choose the next vertex that the ant will visit
+     */
     public void visitNext(){
         double r = random.nextDouble();
         int nextVertice = -1;

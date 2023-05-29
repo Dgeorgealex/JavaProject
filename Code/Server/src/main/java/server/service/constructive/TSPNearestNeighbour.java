@@ -4,6 +4,9 @@ import server.model.TSPInstance;
 import server.model.Point;
 import server.service.TSPSolver;
 
+/**
+ * Simple nearest neighbour implementation
+ */
 public class TSPNearestNeighbour implements TSPSolver {
 
     private int n;

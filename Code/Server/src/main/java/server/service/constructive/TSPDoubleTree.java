@@ -10,12 +10,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Double Tree algorithm implementation
+ */
 public class TSPDoubleTree implements TSPSolver {
     private final int n;
     private final Point[] points;
+    /**
+     * The minimum spanning tree
+     */
     private List<Integer>[] tree;
+    /**
+     * The euler tour
+     */
     private List<Integer> tour;
+    /**
+     * All the edges in the complete graph to be sorted
+     */
     private CostEdge[] edges;
+    /**
+     * DSU data structure
+     */
     private DSU dsu;
 
     public TSPDoubleTree(TSPInstance tspInstance) {
@@ -30,6 +45,12 @@ public class TSPDoubleTree implements TSPSolver {
         edges = new CostEdge[n * (n - 1) / 2];
         tour = new ArrayList<>();
     }
+
+    /**
+     * DFS to find a Euler Tour
+     * @param x Current vertex
+     * @param p The partent in the DFS tree
+     */
     public void dfs(int x, int p){
         tour.add(x);
         for(Integer it: tree[x])
