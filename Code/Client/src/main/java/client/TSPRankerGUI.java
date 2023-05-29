@@ -1,21 +1,7 @@
 package client;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import model.PairIdInstance;
 import model.TSPInstance;
-import model.TSPSolution;
-
-import java.util.List;
 
 public class TSPRankerGUI {
 

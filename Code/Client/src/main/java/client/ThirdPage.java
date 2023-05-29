@@ -54,13 +54,11 @@ public class ThirdPage {
             minX = Math.min(minX, points[i].getX());
             minY = Math.min(minY, points[i].getY());
         }
-        System.out.println(minX + " " + maxX);
         gc.setFill(Color.BLACK);
         for(int i=0;i<points.length;i++){
             int x = normalize(minX, maxX, points[i].getX());
             int y = normalize(minY, maxY, points[i].getY());
             int radius = 3;
-            System.out.println(x + " " + y);
             gc.fillOval(x - radius + 20, y - radius + 20, 2 * radius, 2 * radius);
         }
 

@@ -1,6 +1,5 @@
 package client;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +18,6 @@ import model.TSPInstance;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import javax.print.attribute.standard.Media;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
